@@ -7,27 +7,31 @@
         <param name="device_id" value="0"/>
     </node>
 
+    <arg name="sensor_name" default="d435rs01" />
+    <arg name="topic" default="/d435rs01/color/image_raw" />
+    <arg name="output_file" default="/home/ros/noetic/src/project_shokunin/shokunin_ros_pkg/shokunin_ros_pkg/shokunin_calibration/config/camera/intrinsics/sensor_name.yaml" />
+
     <node pkg="charuco_calibration" name="charuco_calibration" type="charuco_calibration_node" output="screen">
         <!-- Image source. The node subscribes to image topic, remap your topic to it -->
-        <remap from="image" to="cv_camera/image_raw"/>
+        <remap from="image" to="$(arg topic)"/>
         <!-- Chessboard square size, in meters -->
-        <param name="square_length" value="0.028875" />
+        <param name="square_length" value="0.03" /> 
         <!-- ArUco marker size, in meters -->
-        <param name="marker_length" value="0.0175"/>
+        <param name="marker_length" value="0.022"/>
         <!-- Number of squares in the X direciton -->
-        <param name="squares_x" value="6"/>
+        <param name="squares_x" value="12"/>
         <!-- Number of squares in the Y direction -->
-        <param name="squares_y" value="8"/>
+        <param name="squares_y" value="9"/>
         <!-- Dicitonary ID used in calibration (see https://docs.opencv.org/3.4.9/d9/d6a/group__aruco.html#gac84398a9ed9dd01306592dd616c2c975 for details) -->
-        <param name="dictionary_id" value="4"/>
+        <param name="dictionary_id" value="5"/>
         <!-- Board image width, in pixels -->
-        <param name="board_image_width" value="1536"/>
+        <param name="board_image_width" value="12*150"/>
         <!-- Board image height, in pixels -->
-        <param name="board_image_height" value="2048"/>
+        <param name="board_image_height" value="9*150"/>
         <!-- Board image border, in pixels -->
         <param name="board_image_border" value="100"/>
         <!-- Should we perform ArUco detection refinement? (see https://docs.opencv.org/3.4.9/d9/d6a/group__aruco.html#ga13a2742381c0a48e146d230a8cda2e66 for details) -->
-        <param name="perform_refinement" value="true"/>
+        <param name="perform_refinement" value="false"/>
         <!-- Should we draw points where we've already detected a marker corner? -->
         <param name="draw_historical_markers" value="true"/>
         <!-- Calibration flags bitmask -->
@@ -35,9 +39,9 @@
         <!-- NOTE: This value is overriden by calibration_flags section -->
         <!-- <param name="calibration_flags_mask" value="16384"/> --> <!-- cv::CALIB_RATIONAL_MODEL -->
         <!-- Should we save the images used in calibration? -->
-        <param name="save_images" value="true"/>
+        <param name="save_images" value="false"/>
         <!-- Calibration file name -->
-        <param name="output_file" value="calibration.yaml"/>
+        <param name="output_file" value="$(arg sensor_name)"/>
         <!-- Load ArUco detector parameters -->
         <rosparam command="load" file="$(find charuco_calibration)/launch/calibration_params.yaml"/>
     </node>

@@ -165,6 +165,7 @@ int main(int argc, char *argv[]) {
     while(hasImage) {
         Mat image;
         image = lastImage.clone();
+        cv::cvtColor(image, image, COLOR_BGRA2BGR);
 
         auto detectionResult = calibrator.processImage(image);
         auto displayedImage = calibrator.drawDetectionResults(detectionResult);
@@ -196,7 +197,7 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    cvDestroyWindow("out");
+    cv:: destroyWindow("out");
 
     std::cout << "Calibrating..." << std::endl;
 

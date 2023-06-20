@@ -10,7 +10,7 @@ calibration_flags:
   CALIB_FIX_K4: false
   CALIB_FIX_K5: false
   CALIB_FIX_K6: false
-  CALIB_RATIONAL_MODEL: true
+  CALIB_RATIONAL_MODEL: false
   CALIB_THIN_PRISM_MODEL: false
   CALIB_FIX_S1_S2_S3_S4: false
   CALIB_TILTED_MODEL: false
