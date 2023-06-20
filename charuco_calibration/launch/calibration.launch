@@ -9,7 +9,7 @@
 
     <arg name="sensor_name" default="d435rs01" />
     <arg name="topic" default="/d435rs01/color/image_raw" />
-    <arg name="output_file" default="/home/ros/noetic/src/project_shokunin/shokunin_ros_pkg/shokunin_ros_pkg/shokunin_calibration/config/camera/intrinsics/sensor_name.yaml" />
+    <arg name="output_file" default="/home/ros/noetic/src/project_shokunin/shokunin_ros_pkg/shokunin_ros_pkg/shokunin_calibration/config/camera/intrinsics/($ sensor_name)_intrinsic.yaml" />
 
     <node pkg="charuco_calibration" name="charuco_calibration" type="charuco_calibration_node" output="screen">
         <!-- Image source. The node subscribes to image topic, remap your topic to it -->
