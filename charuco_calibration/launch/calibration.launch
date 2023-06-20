@@ -41,7 +41,7 @@
         <!-- Should we save the images used in calibration? -->
         <param name="save_images" value="false"/>
         <!-- Calibration file name -->
-        <param name="output_file" value="$(arg sensor_name)"/>
+        <param name="output_file" value="$(arg output_file)"/>
         <!-- Load ArUco detector parameters -->
         <rosparam command="load" file="$(find charuco_calibration)/launch/calibration_params.yaml"/>
     </node>
