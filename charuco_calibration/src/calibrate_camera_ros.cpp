@@ -120,6 +120,7 @@ int main(int argc, char *argv[]) {
 
     bool saveCalibrationImages = nhPriv.param<bool>("save_images", true);
     std::string outputFile = nhPriv.param<std::string>("output_file", "calibration.yaml");
+    std::string depractedOutputFile = nhPriv.param<std::string>("depracted_output_file", "calibration.yaml");
     
     ros::NodeHandle nh_detector("~detector_parameters");
     readDetectorParameters(nh_detector, calibrator.arucoDetectorParams);
@@ -195,6 +196,19 @@ int main(int argc, char *argv[]) {
     std::cout << "Calibrating..." << std::endl;
 
     auto calibResult = calibrator.performCalibration();
+
+    namespace fs = std::filesystem;
+    fs::path f{ outputFile };
+    if (fs::exists(f)) 
+    {
+        try {
+            std::filesystem::copy(outputFile, depractedOutputFile);
+            std::filesystem::remove(outputFile);
+            std::cout << "Out calibration moved to the depracted folder." << std::endl;
+        } catch (std::filesystem::filesystem_error& e) {
+            std::cout << e.what() << '\n';
+        }
+    }
 
     if (calibResult.isValid)
     {
