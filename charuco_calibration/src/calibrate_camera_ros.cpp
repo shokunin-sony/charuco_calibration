@@ -47,7 +47,6 @@ the use of this software, even if advised of the possibility of such damage.
 #include <opencv2/highgui.hpp>
 #include <opencv2/imgproc.hpp>
 #include <stdlib.h>
-#include <windows.h>
 #include <iomanip>
 #include <chrono>
 #include <iomanip>
@@ -207,7 +206,7 @@ int main(int argc, char *argv[]) {
     if (fs::exists(f)) 
     {
         try {
-            CreateDirectory (outputFolder + "deprecated/", NULL);
+            std::filesystem::create_directory(outputFolder + "deprecated/");
             auto in_time_t = std::chrono::system_clock::to_time_t(now);
             std::stringstream datetime;
             datetime << std::put_time(std::localtime(&in_time_t), "%Y-%m-%d %X");
