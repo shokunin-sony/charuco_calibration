@@ -3,8 +3,7 @@
 
     <arg name="sensor_name" default="d435rs01" />
     <arg name="topic" default="/d435rs01/color/image_raw" />
-    <arg name="output_file" default="$(find calibration_configs)/config/camera/intrinsics/$(arg sensor_name)_intrinsic.yaml" />
-    <arg name="depracted_output_file" default="$(find calibration_configs)/config/camera/intrinsics/deprecated/$(arg sensor_name)_intrinsic.yaml" />
+    <arg name="output_folder" default="$(find calibration_configs)/config/camera/intrinsics/" />
 
     <node pkg="charuco_calibration" name="charuco_calibration" type="charuco_calibration_node" output="screen">
         <!-- Image source. The node subscribes to image topic, remap your topic to it -->
@@ -36,8 +35,8 @@
         <!-- Should we save the images used in calibration? -->
         <param name="save_images" value="false"/>
         <!-- Calibration file name -->
-        <param name="output_file" value="$(arg output_file)"/>
-        <param name="depracted_output_file" value="$(arg depracted_output_file)"/>
+        <param name="output_folder" value="$(arg output_folder)"/>
+        <param name="sensor_name" value="$(arg sensor_name)"/>
         <!-- Load ArUco detector parameters -->
         <rosparam command="load" file="$(find charuco_calibration)/launch/calibration_params.yaml"/>
     </node>
