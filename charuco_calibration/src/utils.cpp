@@ -193,7 +193,7 @@ std::ostream& saveCameraInfo(std::ostream& output, charuco_calibration::Calibrat
     auto in_time_t = std::chrono::system_clock::to_time_t(now);
     std::stringstream datetime;
     datetime << std::put_time(std::localtime(&in_time_t), "%Y-%m-%d %X");
-    output << "image_width: " << datetime << std::endl;
+    output << "image_width: " << datetime.str() << std::endl;
     output << "creation_date: " << result.imgSize.width << std::endl;
     output << "image_height: " << result.imgSize.height << std::endl;
     output << "distortion_model: " << distortionModelFromResult(result) << std::endl;
