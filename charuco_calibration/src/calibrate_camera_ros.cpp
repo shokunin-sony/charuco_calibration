@@ -210,7 +210,7 @@ int main(int argc, char *argv[]) {
             auto now = std::chrono::system_clock::now();
             auto in_time_t = std::chrono::system_clock::to_time_t(now);
             std::stringstream datetime;
-            datetime << std::put_time(std::localtime(&in_time_t), "%Y-%m-%d %X");
+            datetime << std::put_time(std::localtime(&in_time_t), "_%Y-%m-%d %X");
             std::filesystem::copy(outputFolder + cameraName + "_intrinsic.yaml", outputFolder + "deprecated/" + cameraName + "_intrinsic" + datetime.str() + ".yaml");
             std::filesystem::remove(outputFolder + cameraName + "_intrinsic.yaml");
             std::cout << "Old calibration moved to the depracted folder." << std::endl;
