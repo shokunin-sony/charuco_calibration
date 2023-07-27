@@ -1,4 +1,8 @@
 #include "utils.h"
+#include <chrono>
+#include <iomanip> // put_time
+#include <fstream>
+#include <sstream> // stringstream
 
 #include <sensor_msgs/distortion_models.h>
 
@@ -185,6 +189,11 @@ static std::ostream& cvToYamlArray(std::ostream& output, const std::string& matN
 std::ostream& saveCameraInfo(std::ostream& output, charuco_calibration::CalibrationResult& result)
 {
     // Field order does not matter here, but still
+    auto now = std::chrono::system_clock::now();
+    auto in_time_t = std::chrono::system_clock::to_time_t(now);
+    std::stringstream datetime;
+    datetime << std::put_time(std::localtime(&in_time_t), "%Y-%m-%d %X");
+    output << "creation_date: " << datetime.str() << std::endl;
     output << "image_width: " << result.imgSize.width << std::endl;
     output << "image_height: " << result.imgSize.height << std::endl;
     output << "distortion_model: " << distortionModelFromResult(result) << std::endl;
